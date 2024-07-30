@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<OfficeApp xmlns="http://schemas.microsoft.com/office/appforoffice/1.1" 
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+           xmlns:bt="http://schemas.microsoft.com/office/officeappbasictypes/1.0" 
+           xmlns:mailappor="http://schemas.microsoft.com/office/mailappversionoverrides/1.0">
+    <Id>a8c8ff49-d232-4392-b317-56e4ab91e969</Id>
+    <Version>1.0.0.0</Version>
+    <ProviderName>alif</ProviderName>
+    <DefaultLocale>en-US</DefaultLocale>
+    <DisplayName DefaultValue="EmailAttachmentWarning" />
+    <Description DefaultValue="Gives a warning to user if there is an attachment in the email and outsider is inside the recipient list" />
+    <IconUrl DefaultValue="https://github.com/muhammad-alif/EmailAttachmentWarning/blob/main/cat.jpg" /> 
+    <HighResolutionIconUrl DefaultValue="https://github.com/muhammad-alif/EmailAttachmentWarning/blob/main/cat.jpg" /> 
+    <SupportUrl DefaultValue="https://github.com/muhammad-alif/EmailAttachmentWarning" />
+    <Hosts>
+        <Host Name="Mailbox" />
+    </Hosts>
+    <Requirements>
+        <Sets DefaultMinVersion="1.1">
+            <Set Name="Mailbox" />
+        </Sets>
+    </Requirements>
+    <FormSettings>
+        <Form xsi:type="ItemRead">
+            <DesktopSettings>
+                <SourceLocation DefaultValue="taskpane.html" />
+            </DesktopSettings>
+        </Form>
+    </FormSettings>
+    <Permissions>ReadWriteItem</Permissions>
+    <Rule xsi:type="RuleCollection" Mode="Or">
+        <Rule xsi:type="ItemIs" ItemType="Message" FormType="ReadOrCompose" />
+    </Rule>
+    <VersionOverrides V1_0="false" V1_1="true">
+        <VersionOverrides V1_1="true">
+            <Hosts>
+                <Host xsi:type="MailHost">
+                    <DesktopFormFactor>
+                        <FunctionFile resid="functionFile" />
+                        <ExtensionPoint xsi:type="MessageComposeCommandSurface">
+                            <OfficeTab id="TabDefault">
+                                <Group id="msgComposeGroup">
+                                    <Label resid="groupLabel" />
+                                    <Control xsi:type="Button" id="msgComposeButton">
+                                        <Label resid="buttonLabel" />
+                                        <Supertip>
+                                            <Title resid="buttonTitle" />
+                                            <Description resid="buttonDescription" />
+                                        </Supertip>
+                                        <Icon>
+                                            <bt:Image size="16" resid="icon16" />
+                                            <bt:Image size="32" resid="icon32" />
+                                            <bt:Image size="80" resid="icon80" />
+                                        </Icon>
+                                        <Action xsi:type="ExecuteFunction">
+                                            <FunctionName>validateBeforeSend</FunctionName>
+                                        </Action>
+                                    </Control>
+                                </Group>
+                            </OfficeTab>
+                        </ExtensionPoint>
+                    </DesktopFormFactor>
+                </Host>
+            </Hosts>
+            <Resources>
+                <bt:Images>
+                    <bt:Image id="icon16" DefaultValue="https://your-icon-url/icon16.png" />
+                    <bt:Image id="icon32" DefaultValue="https://your-icon-url/icon32.png" />
+                    <bt:Image id="icon80" DefaultValue="https://your-icon-url/icon80.png" />
+                </bt:Images>
+                <bt:Urls>
+                    <bt:Url id="functionFile" DefaultValue="https://your-url/functions.html" />
+                </bt:Urls>
+                <bt:ShortStrings>
+                    <bt:String id="groupLabel" DefaultValue="Custom Group" />
+                    <bt:String id="buttonLabel" DefaultValue="Validate Send" />
+                    <bt:String id="buttonTitle" DefaultValue="Validate Send" />
+                </bt:ShortStrings>
+                <bt:LongStrings>
+                    <bt:String id="buttonDescription" DefaultValue="Validates the email before sending." />
+                </bt:LongStrings>
+            </Resources>
+        </VersionOverrides>
+    </VersionOverrides>
+</OfficeApp>
